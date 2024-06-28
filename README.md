@@ -1,0 +1,1 @@
+This app will ask you questions about different topics of chemistry

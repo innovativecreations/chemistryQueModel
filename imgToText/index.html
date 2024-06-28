@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image to Text App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Image to Text App</h1>
+    <input type="file" id="image-input" accept="image/*">
+    <button id="extract-text-button">Extract Text</button>
+    <div id="result">
+      <h2>Extracted Text:</h2>
+      <p id="extracted-text"></p>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@v2.1.4/dist/tesseract.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
