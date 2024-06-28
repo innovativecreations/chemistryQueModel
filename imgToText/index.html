@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +23,39 @@
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@v2.1.4/dist/tesseract.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image to Text App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Image to Text App</h1>
+    <input type="file" id="image-input" accept="image/*">
+    <button id="extract-text-button">Extract Text</button>
+    <div>
+      <video id="video" width="320" height="240" autoplay></video>
+      <button id="capture-button">Capture Photo</button>
+    </div>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <div>
+      <input type="file" id="pdf-input" accept="application/pdf">
+      <button id="extract-pdf-text-button">Extract PDF Text</button>
+    </div>
+    <div id="result">
+      <h2>Extracted Text:</h2>
+      <p id="extracted-text"></p>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@v2.1.4/dist/tesseract.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist/build/pdf.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
