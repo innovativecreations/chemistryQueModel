@@ -11,6 +11,9 @@ document.getElementById('extract-text-button').addEventListener('click', () => {
           }
         ).then(({ data: { text } }) => {
           document.getElementById('extracted-text').textContent = text;
+        }).catch(err => {
+          console.error(err);
+          alert('Failed to extract text. Please try again.');
         });
       };
       reader.readAsDataURL(input);
@@ -29,6 +32,7 @@ document.getElementById('extract-text-button').addEventListener('click', () => {
     })
     .catch(err => {
       console.error('Error accessing the camera: ', err);
+      alert('Error accessing the camera. Please try again.');
     });
   
   captureButton.addEventListener('click', () => {
@@ -37,15 +41,26 @@ document.getElementById('extract-text-button').addEventListener('click', () => {
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
   
     canvas.toBlob(blob => {
-      Tesseract.recognize(
-        blob,
-        'eng',
-        {
-          logger: (m) => console.log(m),
-        }
-      ).then(({ data: { text } }) => {
-        document.getElementById('extracted-text').textContent = text;
-      });
+      if (blob) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          Tesseract.recognize(
+            e.target.result,
+            'eng',
+            {
+              logger: (m) => console.log(m),
+            }
+          ).then(({ data: { text } }) => {
+            document.getElementById('extracted-text').textContent = text;
+          }).catch(err => {
+            console.error(err);
+            alert('Failed to extract text from the captured photo. Please try again.');
+          });
+        };
+        reader.readAsDataURL(blob);
+      } else {
+        alert('Failed to capture image. Please try again.');
+      }
     }, 'image/png');
   });
   
