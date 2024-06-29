@@ -41,9 +41,10 @@
     <input type="file" id="image-input" accept="image/*">
     <input type="file" id="pdf-input" accept="application/pdf">
     <div class="camera">
-      <video id="video" width="320" height="240" autoplay></video>
+      <video id="video" width="320" height="240" autoplay style="display: none;"></video>
     </div>
-    <button id="action-button">Capture/Upload & Extract Text</button>
+    <button id="action-button">Extract Text from img/pdf</button>
+    <button id="capture-button">Open Camera</button>
     <canvas id="canvas" style="display:none;"></canvas>
     <div id="result">
       <h2>Extracted Text:</h2>
