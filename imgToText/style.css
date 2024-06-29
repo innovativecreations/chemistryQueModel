@@ -53,3 +53,9 @@ video {
   display: block;
   margin: 0 auto;
 }
+
+#loading {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #007bff;
+}

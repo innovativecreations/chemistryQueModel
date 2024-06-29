@@ -39,7 +39,16 @@ document.getElementById('action-button').addEventListener('click', () => {
   }
 });
 
+function showLoading() {
+  document.getElementById('loading').style.display = 'block';
+}
+
+function hideLoading() {
+  document.getElementById('loading').style.display = 'none';
+}
+
 function extractTextFromImage(file) {
+  showLoading();
   const reader = new FileReader();
   reader.onload = function(e) {
     Tesseract.recognize(
@@ -50,15 +59,18 @@ function extractTextFromImage(file) {
       }
     ).then(({ data: { text } }) => {
       document.getElementById('extracted-text').textContent = text;
+      hideLoading();
     }).catch(err => {
       console.error(err);
       alert('Failed to extract text. Please try again.');
+      hideLoading();
     });
   };
   reader.readAsDataURL(file);
 }
 
 function extractTextFromPDF(file) {
+  showLoading();
   const reader = new FileReader();
   reader.onload = function(e) {
     const typedarray = new Uint8Array(e.target.result);
@@ -73,6 +85,7 @@ function extractTextFromPDF(file) {
             });
             if (i === numPages) {
               document.getElementById('extracted-text').textContent = extractedText;
+              hideLoading();
             }
           });
         });
@@ -83,6 +96,7 @@ function extractTextFromPDF(file) {
 }
 
 function captureAndExtractFromCamera() {
+  showLoading();
   const video = document.getElementById('video');
   const canvas = document.getElementById('canvas');
   canvas.width = video.videoWidth;
@@ -113,9 +127,11 @@ function captureAndExtractFromCamera() {
           }
         ).then(({ data: { text } }) => {
           document.getElementById('extracted-text').textContent = text;
+          hideLoading();
         }).catch(err => {
           console.error(err);
           alert('Failed to extract text from the captured photo. Please try again.');
+          hideLoading();
         });
       };
       reader.readAsDataURL(blob);
@@ -126,6 +142,7 @@ function captureAndExtractFromCamera() {
       a.click();
     } else {
       alert('Failed to capture image. Please try again.');
+      hideLoading();
     }
   }, 'image/png');
 }
