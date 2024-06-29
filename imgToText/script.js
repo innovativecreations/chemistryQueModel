@@ -1,84 +1,8 @@
-/*
-document.getElementById('extract-text-button').addEventListener('click', () => {
-    const input = document.getElementById('image-input').files[0];
-    if (input) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        Tesseract.recognize(
-          e.target.result,
-          'eng',
-          {
-            logger: (m) => console.log(m),
-          }
-        ).then(({ data: { text } }) => {
-          document.getElementById('extracted-text').textContent = text;
-        }).catch(err => {
-          console.error(err);
-          alert('Failed to extract text. Please try again.');
-        });
-      };
-      reader.readAsDataURL(input);
-    } else {
-      alert('Please select an image file first.');
-    }
-  });
-  
-  const video = document.getElementById('video');
-  const canvas = document.getElementById('canvas');
-  const captureButton = document.getElementById('capture-button');
-  
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(stream => {
-      video.srcObject = stream;
-    })
-    .catch(err => {
-      console.error('Error accessing the camera: ', err);
-      alert('Error accessing the camera. Please try again.');
-    });
-  
-  captureButton.addEventListener('click', () => {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-  
-    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imageData.data;
-    for (let i = 0; i < data.length; i += 4) {
-      const avg = (data[i] + data[i + 1] + data[i + 2]);
-    }
-  
-    canvas.toBlob(blob => {
-      if (blob) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          Tesseract.recognize(
-            e.target.result,
-            'eng',
-            {
-              logger: (m) => console.log(m),
-            }
-          ).then(({ data: { text } }) => {
-            document.getElementById('extracted-text').textContent = text;
-          }).catch(err => {
-            console.error(err);
-            alert('Failed to extract text from the captured photo. Please try again.');
-          });
-        };
-        reader.readAsDataURL(blob);
-      } else {
-        alert('Failed to capture image. Please try again.');
-      }
-    }, 'image/png');
-  });
-  */
-
-
 let cameraStream = null;
 
 document.getElementById('capture-button').addEventListener('click', () => {
   const video = document.getElementById('video');
-
+  
   if (!cameraStream) {
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
@@ -86,7 +10,6 @@ document.getElementById('capture-button').addEventListener('click', () => {
         video.srcObject = stream;
         video.style.display = 'block';
         document.getElementById('capture-button').textContent = 'Close Camera';
-        document.getElementById('action-button').textContent = 'Capture and Extract text';
       })
       .catch(err => {
         console.error('Error accessing the camera: ', err);
@@ -97,18 +20,20 @@ document.getElementById('capture-button').addEventListener('click', () => {
     video.style.display = 'none';
     cameraStream = null;
     document.getElementById('capture-button').textContent = 'Open Camera';
-    document.getElementById('action-button').textContent = 'Extract Text from img/pdf';
   }
 });
 
 document.getElementById('action-button').addEventListener('click', () => {
-  const imageInput = document.getElementById('image-input').files[0];
-  const pdfInput = document.getElementById('pdf-input').files[0];
+  const fileInput = document.getElementById('file-input').files[0];
 
-  if (imageInput) {
-    extractTextFromImage(imageInput);
-  } else if (pdfInput) {
-    extractTextFromPDF(pdfInput);
+  if (fileInput) {
+    const fileType = fileInput.type;
+
+    if (fileType.startsWith('image/')) {
+      extractTextFromImage(fileInput);
+    } else if (fileType === 'application/pdf') {
+      extractTextFromPDF(fileInput);
+    }
   } else {
     captureAndExtractFromCamera();
   }
@@ -116,7 +41,7 @@ document.getElementById('action-button').addEventListener('click', () => {
 
 function extractTextFromImage(file) {
   const reader = new FileReader();
-  reader.onload = function (e) {
+  reader.onload = function(e) {
     Tesseract.recognize(
       e.target.result,
       'eng',
@@ -135,7 +60,7 @@ function extractTextFromImage(file) {
 
 function extractTextFromPDF(file) {
   const reader = new FileReader();
-  reader.onload = function (e) {
+  reader.onload = function(e) {
     const typedarray = new Uint8Array(e.target.result);
     pdfjsLib.getDocument(typedarray).promise.then((pdf) => {
       const numPages = pdf.numPages;
@@ -179,7 +104,7 @@ function captureAndExtractFromCamera() {
   canvas.toBlob(blob => {
     if (blob) {
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = function(e) {
         Tesseract.recognize(
           e.target.result,
           'eng',
