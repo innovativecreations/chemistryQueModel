@@ -26,17 +26,30 @@ body {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: none;
+    border: 2px solid #007bff;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: transparent;
     color: white;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .option:hover {
     background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.correct {
+    background-color: green;
+    border-color: green;
+    color: white;
+}
+
+.wrong {
+    background-color: red;
+    border-color: red;
+    color: white;
 }
 
 #result {

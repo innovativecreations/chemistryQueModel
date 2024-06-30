@@ -10,17 +10,18 @@ async function loadCSV() {
 function csvToJSON(csv) {
     const lines = csv.split('\n');
     const result = [];
-    const headers = lines[0].split(',');
+    const headers = lines[0].split(',').map(header => header.trim());
 
     for (let i = 1; i < lines.length; i++) {
-        const obj = {};
         const currentline = lines[i].split(',');
 
-        for (let j = 0; j < headers.length; j++) {
-            obj[headers[j].trim()] = currentline[j].trim();
+        if (currentline.length === headers.length) {
+            const obj = {};
+            for (let j = 0; j < headers.length; j++) {
+                obj[headers[j]] = currentline[j].trim();
+            }
+            result.push(obj);
         }
-
-        result.push(obj);
     }
 
     return result;
@@ -54,6 +55,9 @@ function loadQuestion() {
     document.getElementById("option4").innerText = options[3];
 
     document.getElementById("result").innerText = "";
+    document.querySelectorAll('.option').forEach(button => {
+        button.classList.remove('correct', 'wrong');
+    });
 }
 
 function checkAnswer(button) {
@@ -64,9 +68,11 @@ function checkAnswer(button) {
     if (selectedAnswer === correctAnswer) {
         resultDiv.innerText = "Correct!";
         resultDiv.style.color = "green";
+        button.classList.add('correct');
     } else {
         resultDiv.innerText = `Wrong! The correct answer is ${correctAnswer}.`;
         resultDiv.style.color = "red";
+        button.classList.add('wrong');
     }
 
     setTimeout(loadQuestion, 2000);
