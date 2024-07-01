@@ -22,7 +22,7 @@ body {
     z-index: 1000;
 }
 
-.popup-content {
+.popup-content, .score-content {
     background: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -30,13 +30,13 @@ body {
     color: #000000;
 }
 
-.popup-content p {
+.popup-content p, .score-content p, .score-content h2 {
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
 }
 
-.popup-content button {
+.popup-content button, .score-content button {
     padding: 10px 20px;
     background: #007bff;
     border: none;
@@ -47,7 +47,7 @@ body {
     margin: 5px;
 }
 
-.popup-content button:hover {
+.popup-content button:hover, .score-content button:hover {
     background: #0056b3;
 }
 

@@ -3,11 +3,20 @@ let timerInterval;
 const initialTimerDuration = 20;
 let remainingTime = initialTimerDuration;
 let questionsAnswered = 0;
+let correctAnswers = 0;
 
 async function loadCSV() {
-    const response = await fetch('elementsData.csv');
-    const data = await response.text();
-    elementsData = csvToJSON(data);
+    try {
+        const response = await fetch('elementsData.csv');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.text();
+        elementsData = csvToJSON(data);
+    } catch (error) {
+        console.error('Failed to load CSV file:', error);
+        alert('Failed to load CSV file. Please check the console for more details.');
+    }
 }
 
 function csvToJSON(csv) {
@@ -103,6 +112,7 @@ function checkAnswer(button) {
         resultDiv.innerText = 'Correct!';
         resultDiv.style.color = 'green';
         button.classList.add('correct');
+        correctAnswers++;
     } else {
         resultDiv.innerText = `Wrong! The correct answer is ${correctAnswer}.`;
         resultDiv.style.color = 'red';
@@ -177,6 +187,12 @@ function toggleMenu(show) {
     }
 }
 
+function endQuiz() {
+    document.getElementById('scoreMessage').innerText = `Quiz completed! You answered ${questionsAnswered} questions with ${correctAnswers} correct answers.`;
+    document.getElementById('scoreCard').style.display = 'flex';
+    document.querySelector('.card').style.display = 'none';
+}
+
 document.getElementById('startButton').addEventListener('click', () => {
     document.getElementById('popup').style.display = 'none';
     document.querySelector('.card').style.display = 'block';
@@ -188,8 +204,11 @@ document.getElementById('continueButton').addEventListener('click', () => {
 });
 
 document.getElementById('endButton').addEventListener('click', () => {
-    document.getElementById('menu').style.display = 'none';
-    alert(`Quiz ended. You answered ${questionsAnswered} questions.`);
+    endQuiz();
+});
+
+document.getElementById('restartButton').addEventListener('click', () => {
+    location.reload();
 });
 
 window.addEventListener('keydown', (event) => {
