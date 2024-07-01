@@ -1,6 +1,8 @@
 let elementsData = [];
 let timerInterval;
 const initialTimerDuration = 20;
+let remainingTime = initialTimerDuration;
+let questionsAnswered = 0;
 
 async function loadCSV() {
     const response = await fetch('elementsData.csv');
@@ -86,6 +88,8 @@ function displayRandomElement() {
         button.classList.remove('correct', 'wrong');
     });
 
+    document.getElementById('nextButton').style.display = 'none';
+
     resetTimer();
 }
 
@@ -105,7 +109,8 @@ function checkAnswer(button) {
         button.classList.add('wrong');
     }
 
-    setTimeout(displayRandomElement, 2000);
+    questionsAnswered++;
+    document.getElementById('nextButton').style.display = 'block';
 }
 
 function showCorrectAnswer() {
@@ -118,7 +123,12 @@ function showCorrectAnswer() {
         }
     });
 
-    setTimeout(displayRandomElement, 2000);
+    questionsAnswered++;
+    document.getElementById('nextButton').style.display = 'block';
+}
+
+function nextQuestion() {
+    displayRandomElement();
 }
 
 function startTimer(duration) {
@@ -143,6 +153,8 @@ function startTimer(duration) {
             timerDisplay.textContent = "Time's up!";
             showCorrectAnswer();
         }
+
+        remainingTime = timer;
     }, 1000);
 }
 
@@ -151,13 +163,17 @@ function resetTimer() {
     startTimer(initialTimerDuration);
 }
 
+function resumeTimer() {
+    startTimer(remainingTime);
+}
+
 function toggleMenu(show) {
     document.getElementById('menu').style.display = show ? 'flex' : 'none';
-    document.querySelector('.card').style.display = show ? 'none' : 'block';
+    document.querySelector('.card').classList.toggle('blur', show);
     if (show) {
         clearInterval(timerInterval);
     } else {
-        resetTimer();
+        resumeTimer();
     }
 }
 
@@ -165,6 +181,15 @@ document.getElementById('startButton').addEventListener('click', () => {
     document.getElementById('popup').style.display = 'none';
     document.querySelector('.card').style.display = 'block';
     displayRandomElement();
+});
+
+document.getElementById('continueButton').addEventListener('click', () => {
+    toggleMenu(false);
+});
+
+document.getElementById('endButton').addEventListener('click', () => {
+    document.getElementById('menu').style.display = 'none';
+    alert(`Quiz ended. You answered ${questionsAnswered} questions.`);
 });
 
 window.addEventListener('keydown', (event) => {

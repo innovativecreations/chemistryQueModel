@@ -196,3 +196,18 @@ body {
     margin-top: 20px;
     font-size: 18px;
 }
+
+#nextButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #007bff;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#nextButton:hover {
+    background: #0056b3;
+}
