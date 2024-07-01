@@ -9,6 +9,40 @@ body {
     color: #ffffff;
 }
 
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #000000;
+}
+
+.popup-content button {
+    padding: 10px 20px;
+    background: #007bff;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-content button:hover {
+    background: #0056b3;
+}
+
 .card {
     background-color: #282c34;
     padding: 20px;
@@ -37,6 +71,12 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #000;
     text-shadow: 0 0 5px #000000;
+}
+
+.clock.low-time {
+    border-color: red;
+    color: red;
+    text-shadow: 0 0 5px red;
 }
 
 .question {

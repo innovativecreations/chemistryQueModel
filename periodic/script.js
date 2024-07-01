@@ -1,12 +1,11 @@
 let elementsData = [];
 let timerInterval;
+const initialTimerDuration = 20;
 
 async function loadCSV() {
     const response = await fetch('elementsData.csv');
     const data = await response.text();
     elementsData = csvToJSON(data);
-    displayRandomElement();
-    startTimer(20);
 }
 
 function csvToJSON(csv) {
@@ -86,6 +85,8 @@ function displayRandomElement() {
     document.querySelectorAll('.option').forEach(button => {
         button.classList.remove('correct', 'wrong');
     });
+
+    resetTimer();
 }
 
 function checkAnswer(button) {
@@ -109,10 +110,19 @@ function checkAnswer(button) {
 function startTimer(duration) {
     let timer = duration, seconds;
     const timerDisplay = document.getElementById('timer');
+    const tickSound = document.getElementById('tick-sound');
     timerInterval = setInterval(() => {
         seconds = parseInt(timer % 60, 10);
         seconds = seconds < 10 ? "0" + seconds : seconds;
         timerDisplay.textContent = seconds + "s";
+
+        tickSound.play();
+
+        if (timer < 5) {
+            timerDisplay.classList.add('low-time');
+        } else {
+            timerDisplay.classList.remove('low-time');
+        }
 
         if (--timer < 0) {
             clearInterval(timerInterval);
@@ -120,5 +130,16 @@ function startTimer(duration) {
         }
     }, 1000);
 }
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    startTimer(initialTimerDuration);
+}
+
+document.getElementById('startButton').addEventListener('click', () => {
+    document.getElementById('popup').style.display = 'none';
+    document.querySelector('.card').style.display = 'block';
+    displayRandomElement();
+});
 
 window.onload = loadCSV;
