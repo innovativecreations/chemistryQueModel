@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Mass Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Quiz Time!</h1>
+        <div id="question" data-answer=""></div>
+        <div class="options">
+            <button class="option" onclick="checkAnswer(this)" id="option1"></button>
+            <button class="option" onclick="checkAnswer(this)" id="option2"></button>
+            <button class="option" onclick="checkAnswer(this)" id="option3"></button>
+            <button class="option" onclick="checkAnswer(this)" id="option4"></button>
+        </div>
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
