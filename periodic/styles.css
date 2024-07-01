@@ -4,44 +4,57 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f4f4f4;
+    background-color: #1a1a1a;
     font-family: Arial, sans-serif;
 }
 
 .element-box {
-    background-color: #1E90FF;
+    background: linear-gradient(135deg, #654efd, #e400ff);
     border: 2px solid #000;
-    border-radius: 8px;
+    border-radius: 12px;
     width: 150px;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    color: #000;
+    height: 180px;
+    position: relative;
+    color: #fff;
     text-align: center;
+    box-shadow: 0 0 20px rgba(101, 78, 253, 0.6), 0 0 20px rgba(228, 0, 255, 0.6);
 }
 
 .element-number, .element-symbol, .element-name, .element-mass {
     margin: 0;
     padding: 0;
+    position: absolute;
 }
 
 .element-number {
+    top: 10px;
+    left: 10px;
     font-size: 24px;
     font-weight: bold;
+    text-shadow: 0 0 5px #654efd, 0 0 10px #654efd;
 }
 
 .element-symbol {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 48px;
     font-weight: bold;
+    text-shadow: 0 0 5px #e400ff, 0 0 10px #e400ff;
 }
 
 .element-name {
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 20px;
+    text-shadow: 0 0 5px #654efd, 0 0 10px #654efd;
 }
 
 .element-mass {
+    bottom: 10px;
+    left: 10px;
     font-size: 20px;
     font-weight: bold;
+    text-shadow: 0 0 5px #e400ff, 0 0 10px #e400ff;
 }
