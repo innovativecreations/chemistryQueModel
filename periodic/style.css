@@ -1,0 +1,110 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #1a1a1a;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+}
+
+.quiz-container {
+    text-align: center;
+}
+
+.question {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.element-box {
+    background: linear-gradient(135deg, #654efd, #e400ff);
+    border: 2px solid #000;
+    border-radius: 12px;
+    width: 150px;
+    height: 180px;
+    position: relative;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(101, 78, 253, 0.6), 0 0 20px rgba(228, 0, 255, 0.6);
+}
+
+.element-number, .element-symbol, .element-name, .element-mass {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
+
+.element-number {
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #654efd, 0 0 10px #654efd;
+}
+
+.element-symbol {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #e400ff, 0 0 10px #e400ff;
+}
+
+.element-name {
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    text-shadow: 0 0 5px #654efd, 0 0 10px #654efd;
+}
+
+.element-mass {
+    bottom: 10px;
+    left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #e400ff, 0 0 10px #e400ff;
+}
+
+.options {
+    margin-top: 20px;
+}
+
+.option {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.option:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.correct {
+    background-color: green;
+    border-color: green;
+    color: white;
+}
+
+.wrong {
+    background-color: red;
+    border-color: red;
+    color: white;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+}

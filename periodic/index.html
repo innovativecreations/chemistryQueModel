@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atomic Mass Quiz</title>
+    <title>Element Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="quiz-container">
-        <h1>Quiz Time!</h1>
-        <div id="question" data-answer=""></div>
+        <div id="question" class="question"></div>
+        <div class="element-box">
+            <div class="element-number" id="element-number">1</div>
+            <div class="element-symbol" id="element-symbol">H</div>
+            <div class="element-name" id="element-name">Hydrogen</div>
+            <div class="element-mass" id="element-mass">1.0078</div>
+        </div>
         <div class="options">
             <button class="option" onclick="checkAnswer(this)" id="option1"></button>
             <button class="option" onclick="checkAnswer(this)" id="option2"></button>
