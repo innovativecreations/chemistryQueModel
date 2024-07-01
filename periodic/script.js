@@ -90,6 +90,7 @@ function displayRandomElement() {
 }
 
 function checkAnswer(button) {
+    clearInterval(timerInterval);
     const correctAnswer = button.getAttribute('data-answer');
     const selectedAnswer = button.innerText;
     const resultDiv = document.getElementById('result');
@@ -103,6 +104,19 @@ function checkAnswer(button) {
         resultDiv.style.color = 'red';
         button.classList.add('wrong');
     }
+
+    setTimeout(displayRandomElement, 2000);
+}
+
+function showCorrectAnswer() {
+    const correctAnswer = document.getElementById('option1').getAttribute('data-answer');
+    document.querySelectorAll('.option').forEach(button => {
+        if (button.innerText === correctAnswer) {
+            button.classList.add('correct');
+        } else {
+            button.classList.add('wrong');
+        }
+    });
 
     setTimeout(displayRandomElement, 2000);
 }
@@ -127,6 +141,7 @@ function startTimer(duration) {
         if (--timer < 0) {
             clearInterval(timerInterval);
             timerDisplay.textContent = "Time's up!";
+            showCorrectAnswer();
         }
     }, 1000);
 }
@@ -136,10 +151,26 @@ function resetTimer() {
     startTimer(initialTimerDuration);
 }
 
+function toggleMenu(show) {
+    document.getElementById('menu').style.display = show ? 'flex' : 'none';
+    document.querySelector('.card').style.display = show ? 'none' : 'block';
+    if (show) {
+        clearInterval(timerInterval);
+    } else {
+        resetTimer();
+    }
+}
+
 document.getElementById('startButton').addEventListener('click', () => {
     document.getElementById('popup').style.display = 'none';
     document.querySelector('.card').style.display = 'block';
     displayRandomElement();
+});
+
+window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        toggleMenu(true);
+    }
 });
 
 window.onload = loadCSV;
