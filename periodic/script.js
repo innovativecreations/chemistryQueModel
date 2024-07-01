@@ -1,10 +1,12 @@
 let elementsData = [];
+let timerInterval;
 
 async function loadCSV() {
     const response = await fetch('elementsData.csv');
     const data = await response.text();
     elementsData = csvToJSON(data);
     displayRandomElement();
+    startTimer(20);
 }
 
 function csvToJSON(csv) {
@@ -102,6 +104,21 @@ function checkAnswer(button) {
     }
 
     setTimeout(displayRandomElement, 2000);
+}
+
+function startTimer(duration) {
+    let timer = duration, seconds;
+    const timerDisplay = document.getElementById('timer');
+    timerInterval = setInterval(() => {
+        seconds = parseInt(timer % 60, 10);
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        timerDisplay.textContent = seconds + "s";
+
+        if (--timer < 0) {
+            clearInterval(timerInterval);
+            timerDisplay.textContent = "Time's up!";
+        }
+    }, 1000);
 }
 
 window.onload = loadCSV;
