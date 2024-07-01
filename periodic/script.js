@@ -28,7 +28,11 @@ function csvToJSON(csv) {
 }
 
 function getRandomElement() {
-    return elementsData[Math.floor(Math.random() * elementsData.length)];
+    let element;
+    do {
+        element = elementsData[Math.floor(Math.random() * elementsData.length)];
+    } while (!element['Element Name'] || !element['Symbol'] || !element['Atomic Number'] || !element['Atomic Mass']);
+    return element;
 }
 
 function generateOptions(correctAnswer, property) {
@@ -37,7 +41,9 @@ function generateOptions(correctAnswer, property) {
     while (options.size < 4) {
         let randomElement = getRandomElement();
         let randomOption = randomElement[property];
-        options.add(randomOption);
+        if (randomOption !== undefined && randomOption !== null && randomOption !== '') {
+            options.add(randomOption);
+        }
     }
     return Array.from(options).sort(() => Math.random() - 0.5);
 }
@@ -45,22 +51,22 @@ function generateOptions(correctAnswer, property) {
 function displayRandomElement() {
     const element = getRandomElement();
     const properties = [
-        { prop: 'Atomic Number', label: 'atomic number' },
-        { prop: 'Symbol', label: 'symbol' },
-        { prop: 'Atomic Mass', label: 'atomic mass' },
         { prop: 'Element Name', label: 'name' },
-        { prop: 'Atomic Radii (pm)', label: 'atomic radii' }
+        { prop: 'Symbol', label: 'symbol' },
+        { prop: 'Atomic Number', label: 'atomic number' },
+        { prop: 'Atomic Mass', label: 'atomic mass' }
     ];
     const propertyObj = properties[Math.floor(Math.random() * properties.length)];
     const property = propertyObj.prop;
     const label = propertyObj.label;
     const correctAnswer = element[property];
 
-    document.getElementById('question').innerText = `What's the ${label} of the given element?`;
-    document.getElementById('element-number').innerText = element['Atomic Number'];
-    document.getElementById('element-symbol').innerText = element['Symbol'];
-    document.getElementById('element-name').innerText = element['Element Name'];
-    document.getElementById('element-mass').innerText = element['Atomic Mass'];
+    document.getElementById('question').innerText = `What's the "${label}" of the given element?`;
+
+    document.getElementById('element-number').innerText = property === 'Atomic Number' ? '?' : element['Atomic Number'];
+    document.getElementById('element-symbol').innerText = property === 'Symbol' ? '?' : element['Symbol'];
+    document.getElementById('element-name').innerText = property === 'Element Name' ? '?' : element['Element Name'];
+    document.getElementById('element-mass').innerText = property === 'Atomic Mass' ? '?' : element['Atomic Mass'];
 
     const options = generateOptions(correctAnswer, property);
 

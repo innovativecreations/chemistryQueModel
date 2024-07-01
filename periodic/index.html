@@ -7,21 +7,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="quiz-container">
-        <div id="question" class="question"></div>
-        <div class="element-box">
-            <div class="element-number" id="element-number">1</div>
-            <div class="element-symbol" id="element-symbol">H</div>
-            <div class="element-name" id="element-name">Hydrogen</div>
-            <div class="element-mass" id="element-mass">1.0078</div>
+    <div class="card">
+        <div class="header">
+            <div id="question" class="question"></div>
+            <div id="timer" class="clock">00:00</div>
         </div>
-        <div class="options">
-            <button class="option" onclick="checkAnswer(this)" id="option1"></button>
-            <button class="option" onclick="checkAnswer(this)" id="option2"></button>
-            <button class="option" onclick="checkAnswer(this)" id="option3"></button>
-            <button class="option" onclick="checkAnswer(this)" id="option4"></button>
+        <div class="quiz-container">
+            <div class="element-box">
+                <div class="element-number" id="element-number">1</div>
+                <div class="element-symbol" id="element-symbol">H</div>
+                <div class="element-name" id="element-name">Hydrogen</div>
+                <div class="element-mass" id="element-mass">1</div>
+            </div>
+            <div class="options">
+                <button class="option" onclick="checkAnswer(this)" id="option1"></button>
+                <button class="option" onclick="checkAnswer(this)" id="option2"></button>
+                <button class="option" onclick="checkAnswer(this)" id="option3"></button>
+                <button class="option" onclick="checkAnswer(this)" id="option4"></button>
+            </div>
+            <div id="result"></div>
         </div>
-        <div id="result"></div>
     </div>
     <script src="script.js"></script>
 </body>
