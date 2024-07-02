@@ -25,19 +25,20 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
 
-.popup-content, .score-content {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 10px;
+.popup-content {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    border-radius: 15px;
     text-align: center;
-    color: #000000;
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     animation: fadeIn 0.5s;
 }
 
@@ -52,23 +53,43 @@ body {
     }
 }
 
-.popup-content p, .score-content p, .score-content h2 {
+.popup-content p {
     margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.score-content h2 {
-    margin-bottom: 10px;
     font-size: 28px;
-    color: #007bff;
+    font-weight: bold;
+    color: #00d4ff;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
 }
 
-.popup-content button, .score-content button {
-    padding: 10px 20px;
-    background: #007bff;
+.popup-content button {
+    padding: 15px 30px;
+    background: #00d4ff;
     border: none;
+    color: #000000;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.popup-content button:hover {
+    background: #00a3cc;
+}
+
+.menu-content, .score-content {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
     color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.menu-content button, .score-content button {
+    padding: 10px 20px;
+    background: #00d4ff;
+    border: none;
+    color: #000000;
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
@@ -76,8 +97,8 @@ body {
     transition: background 0.3s;
 }
 
-.popup-content button:hover, .score-content button:hover {
-    background: #0056b3;
+.menu-content button:hover, .score-content button:hover {
+    background: #00a3cc;
 }
 
 .card {
@@ -229,14 +250,22 @@ body {
 #nextButton {
     margin-top: 20px;
     padding: 10px 20px;
-    background: #007bff;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
     border: none;
     color: #ffffff;
-    font-size: 16px;
-    border-radius: 5px;
+    font-size: 18px;
+    border-radius: 25px;
     cursor: pointer;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 #nextButton:hover {
-    background: #0056b3;
+    background: linear-gradient(135deg, #feb47b, #ff7e5f);
+    transform: scale(1.05);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+#nextButton:focus {
+    outline: none;
 }
