@@ -1,9 +1,10 @@
 let elementsData = [];
 let timerInterval;
-const initialTimerDuration = 20;
+const initialTimerDuration = 15;
 let remainingTime = initialTimerDuration;
 let questionsAnswered = 0;
 let correctAnswers = 0;
+let missedQuestions = 0;
 
 async function loadCSV() {
     try {
@@ -39,10 +40,11 @@ function csvToJSON(csv) {
     return result;
 }
 
-function getRandomElement() {
+function getRandomElement(upTo30 = false) {
     let element;
+    const filteredElements = upTo30 ? elementsData.filter(e => parseInt(e['Atomic Number']) <= 30) : elementsData;
     do {
-        element = elementsData[Math.floor(Math.random() * elementsData.length)];
+        element = filteredElements[Math.floor(Math.random() * filteredElements.length)];
     } while (!element['Element Name'] || !element['Symbol'] || !element['Atomic Number'] || !element['Atomic Mass']);
     return element;
 }
@@ -51,7 +53,7 @@ function generateOptions(correctAnswer, property) {
     let options = new Set();
     options.add(correctAnswer);
     while (options.size < 4) {
-        let randomElement = getRandomElement();
+        let randomElement = getRandomElement(property === 'Atomic Mass');
         let randomOption = randomElement[property];
         if (randomOption !== undefined && randomOption !== null && randomOption !== '') {
             options.add(randomOption);
@@ -61,7 +63,6 @@ function generateOptions(correctAnswer, property) {
 }
 
 function displayRandomElement() {
-    const element = getRandomElement();
     const properties = [
         { prop: 'Element Name', label: 'name' },
         { prop: 'Symbol', label: 'symbol' },
@@ -71,6 +72,14 @@ function displayRandomElement() {
     const propertyObj = properties[Math.floor(Math.random() * properties.length)];
     const property = propertyObj.prop;
     const label = propertyObj.label;
+
+    let element;
+    if (property === 'Atomic Mass') {
+        element = getRandomElement(true);
+    } else {
+        element = getRandomElement();
+    }
+
     const correctAnswer = element[property];
 
     document.getElementById('question').innerText = `What's the "${label}" of the given element?`;
@@ -134,6 +143,7 @@ function showCorrectAnswer() {
     });
 
     questionsAnswered++;
+    missedQuestions++;
     document.getElementById('nextButton').style.display = 'block';
 }
 
@@ -188,7 +198,14 @@ function toggleMenu(show) {
 }
 
 function endQuiz() {
-    document.getElementById('scoreMessage').innerText = `Quiz completed! You answered ${questionsAnswered} questions with ${correctAnswers} correct answers.`;
+    const accuracy = (correctAnswers / questionsAnswered * 100).toFixed(2);
+    document.getElementById('scoreMessage').innerHTML = `
+        <p>Quiz Completed!</p>
+        <p>You answered ${questionsAnswered} questions.</p>
+        <p>Correct answers: ${correctAnswers}</p>
+        <p>Missed questions: ${missedQuestions}</p>
+        <p>Accuracy: ${accuracy}%</p>
+    `;
     document.getElementById('scoreCard').style.display = 'flex';
     document.querySelector('.card').style.display = 'none';
 }
