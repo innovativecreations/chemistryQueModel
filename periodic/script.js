@@ -1,6 +1,6 @@
 let elementsData = [];
 let timerInterval;
-const initialTimerDuration = 15;
+const initialTimerDuration = 20;
 let remainingTime = initialTimerDuration;
 let questionsAnswered = 0;
 let correctAnswers = 0;
@@ -14,6 +14,8 @@ async function loadCSV() {
         }
         const data = await response.text();
         elementsData = csvToJSON(data);
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('popup').style.display = 'flex';
     } catch (error) {
         console.error('Failed to load CSV file:', error);
         alert('Failed to load CSV file. Please check the console for more details.');
